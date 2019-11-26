@@ -9,6 +9,7 @@ const logger = morgan("combined");
 const startServer = port => {
   const server = http.createServer((request, response) => {
     const parsedUrl = url.parse(request.url);
+
     // parse query and params / cl url
 
     const func = router[parsedUrl.pathname] || router.default;
