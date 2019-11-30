@@ -3,6 +3,7 @@ const qs = require("querystring");
 const checkUrl = url => {
   const pathname = url.pathname;
   const query = url.query;
+  console.log(query);
 
   const path = {
     pathname: ""

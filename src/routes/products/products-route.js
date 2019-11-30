@@ -1,16 +1,16 @@
 const fs = require("fs");
 const path = require("path");
 const products = require("./products");
+const {
+  handleSingleProductById,
+  handleProductsByIds,
+  handleProductsByCategory,
+  chooseProducts
+} = require("./products-choice");
 
-const findProductById = id => {
-  return products.find(item => item.id === id);
-};
+const productsRoute = (request, response, urlObj) => {
+  console.log(urlObj);
 
-const productsRoute = (request, response, checkedUrl) => {
-  console.log(checkedUrl);
-
-  // path.query["category"]
-  // path.query["ids"]
   const filePath = path.join(
     __dirname,
     "../../",
@@ -18,13 +18,14 @@ const productsRoute = (request, response, checkedUrl) => {
     "products",
     "all-products.json"
   );
+  let chosenProducts = chooseProducts(urlObj);
 
   //const products = fs.readFileSync(filePath, "utf-8");
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Content-Type", "application/json");
   response.writeHead(200);
   //response.end(products);
-  response.end(JSON.stringify(products));
+  response.end(JSON.stringify(chosenProducts));
 };
 
 module.exports = productsRoute;

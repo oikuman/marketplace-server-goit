@@ -71,7 +71,7 @@ const products = [
     creatorId: 1,
     created: "21-08-2018",
     modified: "21-08-2018",
-    categories: ["soup"]
+    categories: ["soupe"]
   },
   {
     id: "k2k0UrjZG",
@@ -131,7 +131,7 @@ const products = [
     creatorId: 1,
     created: "21-08-2018",
     modified: "21-08-2018",
-    categories: ["azu"]
+    categories: ["azou"]
   },
   {
     id: "b7k2U13fd",
