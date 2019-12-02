@@ -1,7 +1,23 @@
-const products = require("./products");
+const path = require("path");
+const fs = require("fs");
+
+const filePath = path.join(
+  __dirname,
+  "../../",
+  "db",
+  "products",
+  "all-products.json"
+);
+
+const getProducts = filePath => {
+  const productString = fs.readFileSync(filePath, "utf-8");
+  return JSON.parse(productString);
+};
+
+const products = getProducts(filePath);
 
 const handleSingleProductById = id => {
-  return products.find(product => product.id === id);
+  return [products.find(product => product.id === id)];
 };
 
 const handleProductsByIds = ids => {
@@ -23,8 +39,10 @@ const chooseProducts = urlObj => {
   let chosenProducts = [];
   const { id, query } = urlObj;
 
-  if (id) chosenProducts = chosenProducts = handleSingleProductById(id);
-  else if (query) {
+  if (id) {
+    chosenProducts = handleSingleProductById(id);
+    console.log(chosenProducts);
+  } else if (query) {
     const { ids, category } = query;
     if (ids) chosenProducts = handleProductsByIds(ids);
     else if (category) chosenProducts = handleProductsByCategory(category);
@@ -33,9 +51,17 @@ const chooseProducts = urlObj => {
   return chosenProducts;
 };
 
+const prepareResponse = chosenProducts => {
+  let serverResponse = null;
+
+  if (!chosenProducts || !chosenProducts.length)
+    serverResponse = { status: "no products", products: [] };
+  else serverResponse = { status: "success", products: chosenProducts };
+
+  return serverResponse;
+};
+
 module.exports = {
-  handleSingleProductById,
-  handleProductsByIds,
-  handleProductsByCategory,
-  chooseProducts
+  chooseProducts,
+  prepareResponse
 };
