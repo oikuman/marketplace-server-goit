@@ -1,5 +1,5 @@
 {
-  "name": "homework1",
+  "name": "marketplace-server-goit",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,5 +13,11 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.19.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "morgan": "^1.9.1",
+    "querystring": "^0.2.0",
+    "shortid": "^2.2.15"
   }
 }
